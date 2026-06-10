@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/28742281/README.md)
+[README (1).md](https://github.com/user-attachments/files/28779925/README.1.md)
 # 🌐 Network Utils
 
 <div align="center">
@@ -12,7 +12,7 @@
   ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝
 ```
 
-**A modular networking toolkit for cybersecurity students and enthusiasts**
+**A self-contained networking toolkit for cybersecurity students and enthusiasts**
 
 [![Python 3.8+](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -28,12 +28,12 @@
 
 This project demonstrates proficiency in:
 - **Socket programming** — Raw TCP connections for port scanning and banner grabbing
-- **Modular design** — Each tool is a self-contained, importable Python module
+- **Clean architecture** — Organized into clearly labeled sections within a single file, each tool's logic is self-contained and well-documented
 - **Error handling** — Graceful degradation with informative error messages
 - **Logging** — Comprehensive session logging for audit trails and debugging
 - **Clean code practices** — Type hints, docstrings, PEP 8 compliance throughout
 
-Every module is documented, type-annotated, and written to be both educational and practically useful for authorized network assessments.
+The entire toolkit lives in a single `main.py` file — zero import hassles, zero module path issues. Just clone and run. Each tool section is clearly separated and documented so the codebase remains easy to read and extend.
 
 ---
 
@@ -55,7 +55,7 @@ Every module is documented, type-annotated, and written to be both educational a
 - **Cross-platform support** — Works on Linux, macOS, and Windows
 - **Comprehensive logging** — Every session is logged with timestamps to `logs/`
 - **Graceful error handling** — No crashes on invalid input or network failures
-- **Extensible architecture** — Add new tools by creating a module and a menu handler
+- **Single-file architecture** — Everything in one file, just clone and run
 
 ---
 
@@ -75,16 +75,18 @@ Every module is documented, type-annotated, and written to be both educational a
    cd network-utils
    ```
 
-2. **Install dependencies:**
+2. **(Optional) Install dnspython for advanced DNS features:**
    ```bash
    pip install -r requirements.txt
    ```
-   > The only external dependency is `dnspython`, which enables advanced DNS record queries. The toolkit will still function without it using Python's built-in `socket` library as a fallback.
+   > The only external dependency is `dnspython`, which enables full DNS record queries (MX, NS, TXT, etc.). The toolkit works without it using Python's built-in `socket` library as a fallback.
 
 3. **Run the application:**
    ```bash
    python main.py
    ```
+
+> **That's it.** No module imports to configure, no path issues. One file, one command.
 
 ### Optional System Tools
 
@@ -122,17 +124,16 @@ $ python main.py
   Select an option: _
 ```
 
-### Module Import (Programmatic)
+### Using Tool Functions Directly (Programmatic)
 
-Each tool can also be imported and used directly in your own Python scripts:
+All tool functions are available at the top level of `main.py`. You can import them directly:
 
 ```python
-from modules.ping import ping_host
-from modules.dns_lookup import dns_lookup, get_dns_records
-from modules.ip_info import get_local_ip, get_hostname
-from modules.port_scanner import scan_ports, scan_common_ports
-from modules.banner_grabber import grab_banner, grab_banners
-from modules.traceroute import traceroute
+from main import ping_host, dns_lookup, get_dns_records
+from main import get_local_ip, get_hostname
+from main import scan_ports, scan_common_ports
+from main import grab_banner, grab_banners
+from main import traceroute
 
 # Ping a host
 result = ping_host("example.com", count=3)
@@ -242,20 +243,28 @@ Hop    Host                                          Latency
 
 ```
 network-utils/
-├── main.py                 # Application entry point & interactive menu
-├── requirements.txt        # Python dependencies
+├── main.py                 # 🎯 The entire toolkit — all tools, UI, logging
+├── requirements.txt        # Optional: dnspython for advanced DNS
 ├── README.md               # Project documentation (this file)
-├── modules/
-│   ├── __init__.py         # Package initialization & metadata
-│   ├── ping.py             # ICMP ping host reachability
-│   ├── dns_lookup.py       # DNS resolution & record queries
-│   ├── ip_info.py          # Local & remote IP information
-│   ├── port_scanner.py     # Multi-threaded TCP port scanner
-│   ├── banner_grabber.py   # Service banner retrieval
-│   └── traceroute.py       # Network path tracing
 ├── screenshots/            # Application screenshots
 └── logs/                   # Session log files (auto-generated)
 ```
+
+The `main.py` file is organized into 11 clearly labeled sections:
+
+| Section | Contents |
+|---------|----------|
+| 1 — ANSI Color Codes | Terminal color constants and Windows compatibility |
+| 2 — Ping Module | ICMP echo reachability checks |
+| 3 — DNS Lookup Module | Forward/reverse DNS and multi-record queries |
+| 4 — IP Information Module | Local/remote IP and hostname details |
+| 5 — Port Scanner Module | Multi-threaded TCP port scanning |
+| 6 — Banner Grabber Module | Service banner retrieval |
+| 7 — Traceroute Module | Network path tracing |
+| 8 — Logging Configuration | File and console logging setup |
+| 9 — Display Helpers | ASCII banner, menu, colored output functions |
+| 10 — Menu Handlers | User interaction logic for each tool |
+| 11 — Main Application Loop | Entry point and interactive loop |
 
 ### Design Decisions
 
@@ -266,6 +275,8 @@ network-utils/
 - **dnspython as optional dependency**: The toolkit gracefully falls back to `socket`-based resolution if `dnspython` is not installed, ensuring the DNS module always works even without the extra dependency.
 
 - **No external framework for CLI**: The menu is built with plain Python `input()` and `print()` to keep the project dependency-free and easy to understand for beginners.
+
+- **Single-file architecture**: All tool logic lives in one `main.py` file so anyone can clone the repo and run it immediately — no import path issues, no missing module errors, no setup complexity. Each tool is still logically separated into its own section with clear headers and documentation.
 
 ---
 
