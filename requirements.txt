@@ -1,0 +1,40 @@
+# =============================================================================
+# Network Utils — Python Dependencies
+# =============================================================================
+# Install all:     pip install -r requirements.txt
+# Install one:     pip install dnspython
+# Check installed: pip list
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Optional Dependencies
+# -----------------------------------------------------------------------------
+# These packages enhance functionality but are NOT required to run the tool.
+# Network Utils will gracefully fall back to built-in alternatives when
+# these are not installed.
+# -----------------------------------------------------------------------------
+
+# dnspython — Advanced DNS toolkit
+#   Used by: DNS Lookup (Section 3) for full record queries (A, AAAA, MX,
+#   NS, TXT, CNAME, SOA) and reverse PTR lookups.
+#   Without it: The tool falls back to Python's built-in socket library,
+#   which supports basic A/AAAA resolution only.
+#   Install if you need: MX, NS, TXT, CNAME, SOA record types
+dnspython>=2.4.0
+
+# =============================================================================
+# Standard Library Modules Used (no installation needed)
+# =============================================================================
+# The following modules are part of Python 3.8+ and require no pip install:
+#
+#   os                  — File path and directory operations
+#   sys                 — System-specific parameters and exit handling
+#   platform            — OS detection (Linux/macOS/Windows) for ping/traceroute
+#   subprocess          — System command execution (ping, traceroute/tracert)
+#   socket              — TCP connections, DNS resolution, network I/O
+#   logging             — Session logging to file and console
+#   datetime            — Timestamp generation for log files
+#   re                  — Regex parsing of traceroute/ping output
+#   concurrent.futures  — Thread pool for multi-threaded port scanning
+#   typing              — Type hints (Optional, Dict, List)
+# =============================================================================
